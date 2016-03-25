@@ -7,22 +7,25 @@ SCENARIO()
     this_test.given = "two positive integers (1)";
     this_test.last_then_line_executed = 0;
     this_test.current_when_line = 0;
-    test_5();
+    
+    do {
+        this_test.test_executed_this_pass = false;
+        test_5();
+    } while(this_test.test_executed_this_pass);
+    
     void test_5 (void)
     {
-    test_5: ;
-        this_test.then_already_executed_this_pass = false;
         printf("+ Given: two positive integers (1)\n");
         int a = 5;
         int b = 7;
         
         /* WHEN */
         this_test.skip_this_clause = false;
-        if (this_test.then_already_executed_this_pass)
+        if (this_test.test_executed_this_pass)
         {
             //We just completed the last WHEN, switch to this when.
             this_test.current_when_line = 22;
-            goto test_5;
+            return;
         }
         if ((this_test.current_when_line == 0) || (this_test.current_when_line == 22))
         {
@@ -31,7 +34,7 @@ SCENARIO()
         }
         else
         {
-            //This is not hte current when line... so don't run it.
+            //This is not the current WHEN clause... so don't run it.
             this_test.skip_this_clause = true;
         }
         if (!this_test.skip_this_clause)
@@ -41,9 +44,9 @@ SCENARIO()
 
             /* THEN */
             this_test.skip_this_clause = false;
-            if (this_test.then_already_executed_this_pass)
+            if (this_test.test_executed_this_pass)
             {
-                goto test_5;
+                return;
             }
             else if (this_test.last_then_line_executed >= __LINE__)
             {
@@ -54,7 +57,7 @@ SCENARIO()
             {
                 // We are executing this THEN clause this pass.
                 this_test.last_then_line_executed = __LINE__;
-                this_test.then_already_executed_this_pass = true;
+                this_test.test_executed_this_pass = true;
             }
             if (!this_test.skip_this_clause)
             {
@@ -73,9 +76,9 @@ SCENARIO()
             
             /* THEN */
             this_test.skip_this_clause = false;
-            if (this_test.then_already_executed_this_pass)
+            if (this_test.test_executed_this_pass)
             {
-                goto test_5;
+                return;
             }
             else if (this_test.last_then_line_executed >= __LINE__)
             {
@@ -86,7 +89,7 @@ SCENARIO()
             {
                 // We are executing this THEN clause this pass.
                 this_test.last_then_line_executed = __LINE__;
-                this_test.then_already_executed_this_pass = true;
+                this_test.test_executed_this_pass = true;
             }
             if (!this_test.skip_this_clause)
             {
@@ -106,11 +109,11 @@ SCENARIO()
 
         /* WHEN */
         this_test.skip_this_clause = false;
-        if (this_test.then_already_executed_this_pass)
+        if (this_test.test_executed_this_pass)
         {
             //We just completed the last WHEN, switch to this when.
             this_test.current_when_line = 109;
-            goto test_5;
+            return;
         }
         if ((this_test.current_when_line == 0) || (this_test.current_when_line == 109))
         {
@@ -129,9 +132,9 @@ SCENARIO()
         
             /* THEN */
             this_test.skip_this_clause = false;
-            if (this_test.then_already_executed_this_pass)
+            if (this_test.test_executed_this_pass)
             {
-                goto test_5;
+                return;
             }
             else if (this_test.last_then_line_executed >= __LINE__)
             {
@@ -142,7 +145,7 @@ SCENARIO()
             {
                 // We are executing this THEN clause this pass.
                 this_test.last_then_line_executed = __LINE__;
-                this_test.then_already_executed_this_pass = true;
+                this_test.test_executed_this_pass = true;
             }
             if (!this_test.skip_this_clause)
             {
