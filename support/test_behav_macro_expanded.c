@@ -1,6 +1,6 @@
 /*
-    This is a test file used during development. This is kind of what the code
-    should look like after macro expansion has been done.
+    This is a test file used during development. This is where I've worked out
+    most of the code should look like after the macros are expanded.
 */
 
 #include "behav.h"
