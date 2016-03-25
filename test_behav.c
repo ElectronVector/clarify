@@ -119,7 +119,7 @@ SCENARIO()
         }
         else
         {
-            //This is not hte current when line... so don't run it.
+            //This is not the current when line... so don't run it.
             this_test.skip_this_clause = true;
         }
         if (!this_test.skip_this_clause)
@@ -127,8 +127,29 @@ SCENARIO()
             printf(" + When: they are multiplied together\n");
             int result = a * b;
         
-            this_test.then = "the value is correct";
-            test_count_total++;
+            /* THEN */
+            this_test.skip_this_clause = false;
+            if (this_test.then_already_executed_this_pass)
+            {
+                goto test_5;
+            }
+            else if (this_test.last_then_line_executed >= __LINE__)
+            {
+                //We've already run this test, skip it.
+                this_test.skip_this_clause = true;
+            }
+            else
+            {
+                // We are executing this THEN clause this pass.
+                this_test.last_then_line_executed = __LINE__;
+                this_test.then_already_executed_this_pass = true;
+            }
+            if (!this_test.skip_this_clause)
+            {
+                this_test.then = "the value is correct";
+                test_count_total++;
+            }
+            if (!this_test.skip_this_clause)
             {
                 printf("  + Then: the value is correct\n");
                 ASSERT(result == 35);
