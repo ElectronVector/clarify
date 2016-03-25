@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 #define ASSERT(boolean_test) \
     do { \
@@ -21,11 +22,23 @@
         } \
     } while (0)
 
+/*
+    State maintined by clarify during the execution of tests.
+*/
 typedef struct {
-    int starting_line_number;
-    char * given;
-    char * when;
+    char * given;                           // The strings describing each
+    char * when;                            // clause.
     char * then;
+    int starting_line_number;               // The starting line number of this
+                                            // test (where the GIVEN statement is).
+    bool then_already_executed_this_pass;   // True when a full Given-When-Then
+                                            // test has already been run this pass through the function.
+    bool skip_this_clause;                  // Temp flag used to skip the clause
+                                            // right here.
+    int current_when_line;                  // The starting line of the WHEN
+                                            // clause currently being executed.
+    int last_then_line_executed;            // The starting line of the most
+                                            // recent THEN clause to be executed.
 } TEST_CASE;
 
 // Create a unique test function name for each test function, based on the line
