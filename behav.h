@@ -65,25 +65,70 @@ typedef struct {
     TEST_CASE this_test; \
     int test_count_total = 0; \
     int test_count_failed = 0; \
-    int all_tests(void); \
-    int main(int argc, char **argv) {\
+    void all_tests(void); \
+    int main(void) {\
         PRINT_HEADER(); \
         all_tests(); \
         PRINT_RESULTS(); \
         return test_count_failed; \
     }\
-    int all_tests(void) 
+    void all_tests(void) 
 
 #define GIVEN(precondition) \
     auto void UNIQUE_TEST_FUNCTION_NAME (void); \
     this_test.starting_line_number = __LINE__; \
     this_test.given = precondition; \
-    UNIQUE_TEST_FUNCTION_NAME(); \
+    this_test.last_then_line_executed = 0; \
+    this_test.current_when_line = 0; \
+    do { \
+        this_test.test_executed_this_pass = false; \
+        UNIQUE_TEST_FUNCTION_NAME(); \
+    } while (this_test.test_executed_this_pass); \
     void UNIQUE_TEST_FUNCTION_NAME (void)
 
-#define WHEN(condition) this_test.when = condition;
+#define WHEN(condition) \
+    this_test.skip_this_clause = false; \
+    if (this_test.test_executed_this_pass) \
+    { \
+        /* We just completed the last WHEN, switch to this when.*/ \
+        this_test.current_when_line = __LINE__; \
+        return; \
+    } \
+    if ((this_test.current_when_line == 0) || (this_test.current_when_line == __LINE__)) \
+    { \
+        /* This is current when clause, so we're going to run it. */ \
+        this_test.when = condition; \
+    } \
+    else \
+    { \
+        /* This is not the current WHEN clause... so don't run it. */ \
+        this_test.skip_this_clause = true; \
+    } \
+    if (!this_test.skip_this_clause)
 
 #define THEN(result) \
-    this_test.then = result; \
-    test_count_total++;
+    this_test.skip_this_clause = false; \
+    if (this_test.test_executed_this_pass) \
+    { \
+        return; \
+    } \
+    else if (this_test.last_then_line_executed >= __LINE__) \
+    { \
+        /*We've already run this test, skip it. */ \
+        printf("---> Skipping Then: last: %d, current: %d\n", this_test.last_then_line_executed, __LINE__); \
+        this_test.skip_this_clause = true; \
+    } \
+    else \
+    { \
+        printf("---> Running Then: last: %d, current: %d\n", this_test.last_then_line_executed, __LINE__); \
+        /* We are executing this THEN clause this pass. */ \
+        this_test.last_then_line_executed = __LINE__; \
+        this_test.test_executed_this_pass = true; \
+    } \
+    if (!this_test.skip_this_clause) \
+    { \
+        this_test.then = result; \
+        test_count_total++; \
+    } \
+    if (!this_test.skip_this_clause)
     

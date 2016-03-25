@@ -14,3 +14,7 @@ Limitations
 Each test stops after the first ASSERT fails. Other tests continue to run.
 
 Run the sample tests with: `rake`
+
+Warning: Watch out for stray semicolons at then end of you statements. For example:
+    WHEN("something happens"); // <-- This semicolon will break your tests.
+This will break your tests in non-obvious ways. Recommend compiling with -W -Wall flags to warn on these errors.
