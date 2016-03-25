@@ -1,4 +1,4 @@
-#include "../behav.h"
+#include "../clarify.h"
 
 SCENARIO()
 {

@@ -3,7 +3,7 @@
     most of the code should look like after the macros are expanded.
 */
 
-#include "behav.h"
+#include "../clarify.h"
 
 SCENARIO()
 {
