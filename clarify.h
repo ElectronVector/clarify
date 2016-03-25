@@ -22,6 +22,8 @@
         } \
     } while (0)
 
+#define REQUIRE(x) ASSERT(x)
+
 /*
     State maintined by clarify during the execution of tests.
 */

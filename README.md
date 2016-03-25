@@ -2,14 +2,13 @@
 
 A Given-When-Then style unit testing framework for C.
 
-Simply include behav.h to use it.
+Simply include clarify.h to use it.
 
-See test_behav.c for an example.
+See the examples folder for an example.
 
 Limitations
 - You can only have a single Scenario per test file.
-- You can only have a single When nested in a Given.
-- You can only have a single Then nested in a When.
+- You must have at least one given, when and then.
 
 Each test stops after the first ASSERT fails. Other tests continue to run.
 
