@@ -115,12 +115,10 @@ typedef struct {
     else if (this_test.last_then_line_executed >= __LINE__) \
     { \
         /*We've already run this test, skip it. */ \
-        printf("---> Skipping Then: last: %d, current: %d\n", this_test.last_then_line_executed, __LINE__); \
         this_test.skip_this_clause = true; \
     } \
     else \
     { \
-        printf("---> Running Then: last: %d, current: %d\n", this_test.last_then_line_executed, __LINE__); \
         /* We are executing this THEN clause this pass. */ \
         this_test.last_then_line_executed = __LINE__; \
         this_test.test_executed_this_pass = true; \
