@@ -1,4 +1,4 @@
-# behav
+# clarify
 
 A Given-When-Then style unit testing framework for C.
 
