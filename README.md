@@ -42,7 +42,7 @@ RUN_TESTS()
 }
 ```
 
-The `RUN_TESTS()` macro provides a `main()` for your application, so you can run your test file by compiling it with *GCC*:
+The `RUN_TESTS()` macro provides a `main()` for your application, so you can run your test file by compiling it with **GCC**. No test runners or boiler plate required!
 
 ```
 gcc -W -Wall my_test_file.c file_under_test.c -o my_test
@@ -52,6 +52,23 @@ Then execute your tests by running the binary:
 
 ```
 ./my_test
+```
+
+## Failures
+
+When a test fails, you get a message telling you exactly where the problem is:
+
+```
+test_power_button.c: Running Tests...
+---------------------------------------------------
+Test at test_power_button.c:6 FAILED
+---------------------------------------------------
+  Given: the power is off
+   When: the power button is momentarily pressed
+   Then: the power turns on
+---------------------------------------------------
+FAILED at test_power_button.c:20:
+  ASSERT( power_button_getPowerState() == POWER_OFF )
 ```
 
 ## Example
