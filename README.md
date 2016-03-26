@@ -7,7 +7,9 @@ Clarify is BDD-style unit test framework for C. It allows you to write Given-Whe
 Just copy the [clarify.h](https://raw.githubusercontent.com/ElectronVector/clarify/master/clarify.h) header file somewhere into your project, and then create test files like this:
 
 ```c
-SCENARIO()
+#include "clarify.h"
+
+RUN_TESTS()
 {
     GIVEN("Some initial state")
     {
@@ -40,15 +42,31 @@ SCENARIO()
 }
 ```
 
-See the examples folder for an example.
+The `RUN_TESTS()` macro provides a `main()` for your application, so you can run your test file by compiling it with *GCC*:
 
-Limitations
-- You can only have a single Scenario per test file.
-- You must have at least one given, when and then.
+```
+gcc -W -Wall my_test_file.c file_under_test.c -o my_test
+```
 
-Each test stops after the first ASSERT fails. Other tests continue to run.
+Then execute your tests by running the binary:
 
-Run the sample tests with: `rake`
+```
+./my_test
+```
+
+## Example
+
+There is an example in [examples/power_button](https://github.com/ElectronVector/clarify/tree/master/examples/power_button). You can use `rake` to run the tests (requires installation of Ruby and Rake).
+
+## Details
+
+The Clarify macros use nested functions, and so require GCC for compilation.
+
+## Limitations
+
+- You can only have a single `RUN_TESTS()` macro per test file.
+- To define a test, you must have at least one `GIVEN()`, `WHEN()`, and `THEN()` clause.
+- Each `THEN()` stops after the first ASSERT fails. Other tests continue to run.
 
 Warning: Watch out for stray semicolons at then end of your statements. For example:
 ```c
