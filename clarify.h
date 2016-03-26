@@ -22,8 +22,6 @@
         } \
     } while (0)
 
-#define REQUIRE(x) ASSERT(x)
-
 /*
     State maintined by clarify during the execution of tests.
 */
@@ -63,7 +61,7 @@ typedef struct {
     printf("Passed: %d\n", test_count_total - test_count_failed); \
     printf("Failed: %d\n", test_count_failed);
 
-#define SCENARIO() \
+#define RUN_TESTS() \
     TEST_CASE this_test; \
     int test_count_total = 0; \
     int test_count_failed = 0; \

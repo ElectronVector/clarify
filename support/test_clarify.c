@@ -1,6 +1,6 @@
 #include "../clarify.h"
 
-SCENARIO()
+RUN_TESTS()
 {
     GIVEN("two positive integers (1)")
     {

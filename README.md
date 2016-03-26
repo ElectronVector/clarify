@@ -58,12 +58,9 @@ Then execute your tests by running the binary:
 
 There is an example in [examples/power_button](https://github.com/ElectronVector/clarify/tree/master/examples/power_button). You can use `rake` to run the tests (requires installation of Ruby and Rake).
 
-## Details
-
-The Clarify macros use nested functions, and so require GCC for compilation.
-
 ## Limitations
 
+- The Clarify macros use nested functions, and so require GCC for compilation.
 - You can only have a single `RUN_TESTS()` macro per test file.
 - To define a test, you must have at least one `GIVEN()`, `WHEN()`, and `THEN()` clause.
 - Each `THEN()` stops after the first ASSERT fails. Other tests continue to run.
@@ -72,4 +69,4 @@ Warning: Watch out for stray semicolons at then end of your statements. For exam
 ```c
     WHEN("something happens"); // <-- This semicolon will break your tests.
 ```
-This will break your tests in non-obvious ways. Recommend compiling with -W -Wall flags to warn on these errors.
+This will break your tests in non-obvious ways. I recommend compiling with -W -Wall flags to warn on these errors.
