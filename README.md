@@ -54,6 +54,11 @@ Then execute your tests by running the binary:
 ./my_test
 ```
 
+## Nesting tests (and changing state)
+
+For each WHEN or THEN clause, the parent GIVEN and/or WHEN clauses are re-run, so that the initial state is reset before each test is run. This means that no "setup" or "teardown" functions are necessary -- which are common in other types of test frameworks. 
+
+
 ## Failures
 
 When a test fails, you get a message telling you exactly where the problem is:
