@@ -18,7 +18,6 @@ RUN_TESTS()
             {
                 printf("  + Then: the result is correct\n");
                 ASSERT(result == 12);
-                //ASSERT(result == 13); // A failure is going to cause an exit immediately.
                 
                 //change the state
                 b = 8;
@@ -29,7 +28,6 @@ RUN_TESTS()
             {
                 printf("  + Then: something else happens\n");
                 ASSERT(result == 12);
-                //ASSERT(result == 13); // A failure is going to cause an exit immediately.
                 
                 //change the state
                 b = 8;
