@@ -1,7 +1,5 @@
 
-task :default => %w[ clarify ]
-
-expected = %{test_clarify.c: Running Tests...
+clarify_expected = %{test_clarify.c: Running Tests...
 + Given: two positive integers (1)
  + When: they are added together
   + Then: the result is correct
@@ -22,15 +20,16 @@ Passed: 3
 Failed: 0
 }
 
-task :clarify do
-    # Generate the preprocessed file.
-    # sh "gcc -E test_behav.c > test_behav.preprocessed"
-    # Build and run the test binary.
-    sh "gcc -W -Wall test_clarify.c -o clarify"
-    result = `./clarify`
+task :default do
+    run_test "clarify", clarify_expected
+end
+
+def run_test(test_name, expected)
+    sh "gcc -W -Wall test_#{test_name}.c -o test_name"
+    result = `./#{test_name}`
     puts result
-    puts "clarify exited with #{$?.exitstatus}"
-    if (result == expected) and ($?.exitstatus == 0)
+    puts "#{test_name} exited with #{$?.exitstatus}"
+    if (result == expected) && ($?.exitstatus == 0)
         puts "******PASS"
     else
         puts "******FAIL"
