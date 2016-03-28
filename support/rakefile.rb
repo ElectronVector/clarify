@@ -1,22 +1,16 @@
 
-single_case_expected = %{test_clarify.c: Running Tests...
-+ Given: two positive integers (1)
- + When: they are added together
-  + Then: the result is correct
-+ Given: two positive integers (1)
- + When: they are added together
-  + Then: something else happens
-+ Given: two positive integers (1)
- + When: they are multiplied together
-  + Then: the value is correct
-+ Given: two positive integers (1)
- + When: they are multiplied together
+single_case_expected = %{test_single_case.c: Running Tests...
++ Given: A
+ + When: 1
+  + Then: a
++ Given: A
+ + When: 1
 
 ---------------------------------------------------
-test_clarify.c: Test Results
+test_single_case.c: Test Results
 ---------------------------------------------------
-Tested: 3
-Passed: 3
+Tested: 1
+Passed: 1
 Failed: 0
 }
 
