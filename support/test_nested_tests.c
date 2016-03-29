@@ -17,7 +17,7 @@ RUN_TESTS()
             THEN("the result is correct")
             {
                 printf("  + Then: the result is correct\n");
-                ASSERT(result == 12);
+                REQUIRE(result == 12);
                 
                 //change the state
                 b = 8;
@@ -27,7 +27,7 @@ RUN_TESTS()
             THEN("something else happens")
             {
                 printf("  + Then: something else happens\n");
-                ASSERT(result == 12);
+                REQUIRE(result == 12);
                 
                 //change the state
                 b = 8;
@@ -43,7 +43,7 @@ RUN_TESTS()
             THEN("the value is correct")
             {
                 printf("  + Then: the value is correct\n");
-                ASSERT(result == 35);
+                REQUIRE(result == 35);
             }
         }
     }
@@ -59,8 +59,8 @@ RUN_TESTS()
     //         
     //         THEN ("the result is correct")
     //         {
-    //             ASSERT(result == 12);
-    //             ASSERT(result == 13);
+    //             REQUIRE(result == 12);
+    //             REQUIRE(result == 13);
     //         }
     //     }
     //     
@@ -70,8 +70,8 @@ RUN_TESTS()
     //         
     //         THEN ("the result is correct")
     //         {
-    //             ASSERT(result == 35);
-    //             //ASSERT(result == 36);
+    //             REQUIRE(result == 35);
+    //             //REQUIRE(result == 36);
     //         }
     //     }
     // }
@@ -87,8 +87,8 @@ RUN_TESTS()
 //             
 //             THEN ("the result is correct")
 //             {
-//                 ASSERT(result == 35);
-//                 //ASSERT(result == 36);
+//                 REQUIRE(result == 35);
+//                 //REQUIRE(result == 36);
 //             }
 //         }
 //     }
@@ -104,8 +104,8 @@ RUN_TESTS()
 //             
 //             THEN ("the result is correct")
 //             {
-//                 ASSERT(result == 35);
-//                 //ASSERT(result == -35);
+//                 REQUIRE(result == 35);
+//                 //REQUIRE(result == -35);
 //             }
 //         }
 //     }

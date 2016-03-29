@@ -9,7 +9,7 @@ RUN_TESTS() {
         WHEN("nothing happens") {
 
             THEN("the power is still off") {
-                ASSERT(power_button_getPowerState() == POWER_OFF);
+                REQUIRE(power_button_getPowerState() == POWER_OFF);
             }
         }
 
@@ -17,7 +17,7 @@ RUN_TESTS() {
             power_button_pressMomentary();
 
             THEN("the power turns on") {
-                ASSERT(power_button_getPowerState() == POWER_ON);
+                REQUIRE(power_button_getPowerState() == POWER_ON);
             }
         }
     }
@@ -30,7 +30,7 @@ RUN_TESTS() {
             power_button_pressMomentary();
 
             THEN("the power remains on") {
-                ASSERT(power_button_getPowerState() == POWER_ON);
+                REQUIRE(power_button_getPowerState() == POWER_ON);
             }
         }
 
@@ -38,7 +38,7 @@ RUN_TESTS() {
             power_button_pressHold();
 
             THEN("the power turns off") {
-                ASSERT(power_button_getPowerState() == POWER_OFF);
+                REQUIRE(power_button_getPowerState() == POWER_OFF);
             }
         }
     }

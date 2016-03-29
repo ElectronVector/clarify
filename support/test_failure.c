@@ -9,7 +9,7 @@ RUN_TESTS()
             /* THEN */
             THEN("then")
             {
-                ASSERT(false);
+                REQUIRE(false);
             }
         }
     }

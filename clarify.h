@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define ASSERT(boolean_test) \
+#define REQUIRE(boolean_test) \
     do { \
         if (!(boolean_test)) { \
             test_count_failed++; \
