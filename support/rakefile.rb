@@ -35,19 +35,50 @@ Passed: 3
 Failed: 0
 }
 
+failure_expected = %{test_failure.c: Running Tests...
+---------------------------------------------------
+Test at test_failure.c:5 FAILED
+---------------------------------------------------
+  Given: given
+   When: when
+   Then: then
+---------------------------------------------------
+FAILED at test_failure.c:12:
+  ASSERT( false )
+---------------------------------------------------
+
+
+---------------------------------------------------
+test_failure.c: Test Results
+---------------------------------------------------
+Tested: 1
+Passed: 0
+Failed: 1
+}
+
 task :default do
-    run_test "single_case", single_case_expected
-    run_test "clarify", clarify_expected
+    run_test "single_case", 0, single_case_expected
+    run_test "failure",     1, failure_expected
+    run_test "clarify",     0, clarify_expected
 end
 
-def run_test(test_name, expected)
+def run_test(test_name, expected_result, expected_output)
     sh "gcc -W -Wall test_#{test_name}.c -o #{test_name}"
     result = `./#{test_name}`
     puts result
     puts "#{test_name} exited with #{$?.exitstatus}"
-    if (result == expected) && ($?.exitstatus == 0)
-        puts "******PASS"
+    if (result == expected_output) && ($?.exitstatus == expected_result)
+        puts "PASS"
     else
-        puts "******FAIL"
+        if (result != expected_output)
+            compare_output(expected_output, result)
+        end
+        puts "**********FAIL****************************************"
     end
 end
+
+# def compare_output (expected, actual)
+#     expected.each_line do |line|
+#         puts "line: #{line}"
+#     end
+# end
