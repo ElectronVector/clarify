@@ -17,14 +17,14 @@ RUN_TESTS()
         {
             THEN("the expected result occurs")
             {
-                ASSERT(expected == actual);
+                REQUIRE(expected == actual);
             }
         }
         WHEN("something else happens")
         {
             THEN("the another expected result occurs")
             {
-                ASSERT(expected == actual);
+                REQUIRE(expected == actual);
             }
         }
     }
@@ -35,7 +35,7 @@ RUN_TESTS()
         {
             THEN("the expected result occurs")
             {
-                ASSERT(expected == actual);
+                REQUIRE(expected == actual);
             }
         }
     }
@@ -73,7 +73,7 @@ Test at test_power_button.c:6 FAILED
    Then: the power turns on
 ---------------------------------------------------
 FAILED at test_power_button.c:20:
-  ASSERT( power_button_getPowerState() == POWER_OFF )
+  REQUIRE( power_button_getPowerState() == POWER_OFF )
 ```
 
 ## Example
@@ -85,7 +85,7 @@ There is an example in [examples/power_button](https://github.com/ElectronVector
 - The Clarify macros use nested functions, and so require GCC for compilation.
 - You can only have a single `RUN_TESTS()` macro per test file.
 - To define a test, you must have at least one `GIVEN()`, `WHEN()`, and `THEN()` clause.
-- Each `THEN()` stops after the first ASSERT fails. Other tests continue to run.
+- Each `THEN()` stops after the first REQUIRE fails. Other tests continue to run.
 
 Warning: Watch out for stray semicolons at then end of your statements. For example:
 ```c
@@ -106,7 +106,7 @@ RUN_TESTS()
         {
             THEN("the expected result occurs")
             {
-                ASSERT(expected == actual);
+                REQUIRE(expected == actual);
             }
             // ** Don't put code here.
         }
