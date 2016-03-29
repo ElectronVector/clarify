@@ -14,7 +14,7 @@ Passed: 1
 Failed: 0
 }
 
-clarify_expected = %{test_clarify.c: Running Tests...
+nested_tests_expected = %{test_nested_tests.c: Running Tests...
 + Given: two positive integers (1)
  + When: they are added together
   + Then: the result is correct
@@ -28,7 +28,7 @@ clarify_expected = %{test_clarify.c: Running Tests...
  + When: they are multiplied together
 
 ---------------------------------------------------
-test_clarify.c: Test Results
+test_nested_tests.c: Test Results
 ---------------------------------------------------
 Tested: 3
 Passed: 3
@@ -57,9 +57,9 @@ Failed: 1
 }
 
 task :default do
-    run_test "single_case", 0, single_case_expected
-    run_test "failure",     1, failure_expected
-    run_test "clarify",     0, clarify_expected
+    run_test "single_case",     0, single_case_expected
+    run_test "failure",         1, failure_expected
+    run_test "nested_tests",    0, nested_tests_expected
 end
 
 def run_test(test_name, expected_result, expected_output)
@@ -68,12 +68,12 @@ def run_test(test_name, expected_result, expected_output)
     puts result
     puts "#{test_name} exited with #{$?.exitstatus}"
     if (result == expected_output) && ($?.exitstatus == expected_result)
-        puts "PASS"
+        puts "***PASS"
     else
         if (result != expected_output)
             compare_output(expected_output, result)
         end
-        puts "**********FAIL****************************************"
+        puts "**********FAIL****************************nested*****"
     end
 end
 
