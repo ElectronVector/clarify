@@ -1,3 +1,7 @@
+/*
+ Clarify is a BDD-style unit testing framework for C.
+*/
+
 #include <stdio.h>
 #include <stdbool.h>
 

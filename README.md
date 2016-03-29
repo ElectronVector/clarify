@@ -92,3 +92,25 @@ Warning: Watch out for stray semicolons at then end of your statements. For exam
     WHEN("something happens"); // <-- This semicolon will break your tests.
 ```
 This will break your tests in non-obvious ways. I recommend compiling with -W -Wall flags to warn on these errors.
+
+Don't put any code in the places indicated below. It won't be run.
+
+```c
+#include "clarify.h"
+
+RUN_TESTS()
+{
+    GIVEN("Some initial state")
+    {
+        WHEN("something happens")
+        {
+            THEN("the expected result occurs")
+            {
+                ASSERT(expected == actual);
+            }
+            // ** Don't put code here.
+        }
+        // ** Don't put code here.
+    }
+}
+```
