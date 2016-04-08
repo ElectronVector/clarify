@@ -1,6 +1,6 @@
 # Clarify
 
-Clarify is BDD-style unit test framework for C. It allows you to write Given-When-Then style unit tests by including a single header file.
+Clarify is a BDD-style unit test framework for C. It allows you to write Given-When-Then style unit tests by including a single header file.
 
 ## Features
 
