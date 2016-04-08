@@ -2,6 +2,13 @@
 
 Clarify is BDD-style unit test framework for C. It allows you to write Given-When-Then style unit tests by including a single header file.
 
+## Features
+
+- BDD test names in plain text (no more gigantic test function names!).
+- It's just C.
+- Small and lightweight.
+- No test-running boiler plate required.
+
 ## How to use it
 
 Just copy the [clarify.h](https://raw.githubusercontent.com/ElectronVector/clarify/master/clarify.h) header file somewhere into your project, and then create test files like this:
@@ -28,7 +35,7 @@ RUN_TESTS()
             }
         }
     }
-    
+
     GIVEN("Some other initial state")
     {
         WHEN("something happens")
@@ -56,7 +63,7 @@ Then execute your tests by running the binary:
 
 ## Nesting tests (and changing state)
 
-For each WHEN or THEN clause, the parent GIVEN and/or WHEN clauses are re-run, so that the initial state is reset before each test is run. This means that no "setup" or "teardown" functions are necessary -- which are common in other types of test frameworks. 
+For each WHEN or THEN clause, the parent GIVEN and/or WHEN clauses are re-run, so that the initial state is reset before each test is run. This means that no "setup" or "teardown" functions are necessary -- which are common in other types of test frameworks.
 
 
 ## Failures
