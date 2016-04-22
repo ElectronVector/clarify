@@ -125,4 +125,5 @@ RUN_TESTS()
 
 ## To Do
 
-- Print values on error.
+- Add string compare.
+- Add mem compare.
