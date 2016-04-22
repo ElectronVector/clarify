@@ -21,7 +21,7 @@ RUN_TESTS() {
             }
         }
     }
-    
+
     GIVEN("the power is on") {
         power_button_initialize(POWER_OFF);
         power_button_pressMomentary();      // Turn the power on.
@@ -39,6 +39,16 @@ RUN_TESTS() {
 
             THEN("the power turns off") {
                 REQUIRE(power_button_getPowerState() == POWER_OFF);
+            }
+        }
+    }
+
+    GIVEN("I want to create a failing test"){
+        WHEN("I compare two invalid values"){
+            int a = 1;
+            int b = 2;
+            THEN("I get a failure") {
+                REQUIRE_EQUAL(a, b, %d);
             }
         }
     }

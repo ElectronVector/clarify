@@ -44,7 +44,7 @@ Test at test_failure.c:5 FAILED
    Then: then
 ---------------------------------------------------
 FAILED at test_failure.c:12:
-  ASSERT( false )
+  REQUIRE( false )
 ---------------------------------------------------
 
 
@@ -73,12 +73,20 @@ def run_test(test_name, expected_result, expected_output)
         if (result != expected_output)
             compare_output(expected_output, result)
         end
-        puts "**********FAIL****************************nested*****"
+        puts "**********FAIL*********************************"
     end
 end
 
-# def compare_output (expected, actual)
-#     expected.each_line do |line|
-#         puts "line: #{line}"
-#     end
-# end
+def compare_output (expected, actual)
+    expected_lines = expected.lines
+    actual_lines = actual.lines
+    i = 0
+    expected_lines.each do |line|
+        if line != actual_lines[i]
+            puts "Mismatch at line #{i}"
+            puts " Expected: #{line}"
+            puts " Actual  : #{actual_lines[i]}"
+        end
+        i += 1
+    end
+end

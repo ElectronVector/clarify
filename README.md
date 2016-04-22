@@ -8,6 +8,7 @@ Clarify is a BDD-style unit test framework for C. It allows you to write Given-W
 - It's just C.
 - Small and lightweight.
 - No test-running boiler plate required.
+- No long jump required.
 
 ## How to use it
 

@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/*
+    Require that the expression evaluates to true.
+*/
 #define REQUIRE(boolean_test) \
     do { \
         if (!(boolean_test)) { \
@@ -19,7 +22,7 @@
             printf("---------------------------------------------------\n"); \
             printf("FAILED at %s:%d:\n", \
                 __FILE__, __LINE__); \
-            printf("  ASSERT( %s )\n", #boolean_test); \
+            printf("  REQUIRE( %s )\n", #boolean_test); \
             printf("---------------------------------------------------\n"); \
             printf("\n"); \
             return; \
@@ -27,18 +30,48 @@
     } while (0)
 
 /*
+    Require that the actual value matches the expected value. If there is an
+    error, the provided printf-style format_string is used to print the value.
+*/
+#define REQUIRE_EQUAL(expected, actual, format_string) \
+    do {\
+        if (!((expected) == (actual))) { \
+            test_count_failed++; \
+            printf("---------------------------------------------------\n"); \
+            printf("Test at %s:%d FAILED\n", \
+                __FILE__, this_test.starting_line_number); \
+            printf("---------------------------------------------------\n"); \
+            printf("  Given: %s\n", this_test.given); \
+            printf("   When: %s\n", this_test.when); \
+            printf("   Then: %s\n", this_test.then); \
+            printf("---------------------------------------------------\n"); \
+            printf("FAILED at %s:%d:\n", \
+                __FILE__, __LINE__); \
+            printf("  REQUIRE_EQUAL( %s, %s, %s )\n", #expected, #actual, #format_string); \
+            printf("    " #format_string " != " #format_string "\n", expected, actual); \
+            printf("---------------------------------------------------\n"); \
+            printf("\n"); \
+            return; \
+        } \
+    } while (0)
+
+#define REQUIRE_EQUAL_STRING(expected, actual)
+
+#define REQUIRE_EQUAL_MEMORY(expected_ptr, actual_ptr, size)
+
+/*
     State maintined by clarify during the execution of tests.
 */
 typedef struct {
     char * given;                   // The strings describing each
-    char * when;                    
+    char * when;
     char * then;
     int starting_line_number;       // The starting line number of this
                                     // test (where the GIVEN statement is).
     bool test_executed_this_pass;   // True when a full Given-When-Then test has
                                     // been run on this pass through the function.
     bool skip_this_clause;          // Temp flag used to skip a clause.
-                                    
+
     int current_when_line;          // The starting line of the WHEN clause
                                     // currently being executed.
     int last_then_line_executed;    // The starting line of the most recent THEN
@@ -76,7 +109,7 @@ typedef struct {
         PRINT_RESULTS(); \
         return test_count_failed; \
     }\
-    void all_tests(void) 
+    void all_tests(void)
 
 #define GIVEN(precondition) \
     auto void UNIQUE_TEST_FUNCTION_NAME (void); \
@@ -133,4 +166,3 @@ typedef struct {
         test_count_total++; \
     } \
     if (!this_test.skip_this_clause)
-    
