@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 /*
     Require that the expression evaluates to true.
@@ -12,18 +13,12 @@
     do { \
         if (!(boolean_test)) { \
             test_count_failed++; \
-            printf("---------------------------------------------------\n"); \
-            printf("Test at %s:%d FAILED\n", \
-                __FILE__, this_test.starting_line_number); \
-            printf("---------------------------------------------------\n"); \
+            printf("FAIL: %s:%d\n", \
+                __FILE__, __LINE__); \
             printf("  Given: %s\n", this_test.given); \
             printf("   When: %s\n", this_test.when); \
             printf("   Then: %s\n", this_test.then); \
-            printf("---------------------------------------------------\n"); \
-            printf("FAILED at %s:%d:\n", \
-                __FILE__, __LINE__); \
-            printf("  REQUIRE( %s )\n", #boolean_test); \
-            printf("---------------------------------------------------\n"); \
+            printf("REQUIRE( %s )\n", #boolean_test); \
             printf("\n"); \
             return; \
         } \
@@ -33,7 +28,8 @@
     Require that the actual value matches the expected value. If there is an
     error, the provided printf-style format_string is used to print the value.
 */
-#define REQUIRE_EQUAL(expected, actual, format_string) \
+#if 0
+#define REQUIRE_EQUAL_FORMAT(expected, actual, format_string) \
     do {\
         if (!((expected) == (actual))) { \
             test_count_failed++; \
@@ -47,18 +43,65 @@
             printf("---------------------------------------------------\n"); \
             printf("FAILED at %s:%d:\n", \
                 __FILE__, __LINE__); \
-            printf("  REQUIRE_EQUAL( %s, %s, %s )\n", #expected, #actual, #format_string); \
-            printf("    " #format_string " != " #format_string "\n", expected, actual); \
+            printf("  Expected: " #format_string "\n", expected); \
+            printf("  Actual  : " #format_string "\n ", actual); \
             printf("---------------------------------------------------\n"); \
             printf("\n"); \
             return; \
         } \
     } while (0)
+#endif
 
-#define REQUIRE_EQUAL_STRING(expected, actual)
+#define REQUIRE_EQUAL_FORMAT(expected, actual, format_string)       \
+    do {                                                            \
+        if (!((expected) == (actual))) {                            \
+            test_count_failed++;                                    \
+            printf("FAIL: %s:%d \n",                                \
+                __FILE__, __LINE__);                                \
+            printf("  Given: %s\n", this_test.given);               \
+            printf("   When: %s\n", this_test.when);                \
+            printf("   Then: %s\n", this_test.then);                \
+            printf("Expected: " #format_string "\n", expected);     \
+            printf("Actual  : " #format_string "\n ", actual);      \
+            printf("\n");                                           \
+            return;                                                 \
+        }                                                           \
+    } while (0)
 
-#define REQUIRE_EQUAL_MEMORY(expected_ptr, actual_ptr, size)
 
+#define REQUIRE_EQUAL_INT(expected, actual) REQUIRE_EQUAL_FORMAT(expected, actual, %d)
+#define REQUIRE_EQUAL_UINT(expected, actual) REQUIRE_EQUAL_FORMAT(expected, actual, %u)
+#define REQUIRE_EQUAL_BYTE(expected, actual) REQUIRE_EQUAL_FORMAT(expected, actual, 0x%02x)
+
+#define REQUIRE_EQUAL_STRING(expected, actual)                      \
+    do {                                                            \
+        if (strcmp(expected, actual) != 0) {                        \
+            test_count_failed++;                                    \
+            printf("FAIL: %s:%d \n",                                \
+                __FILE__, __LINE__);                                \
+            printf("  Given: %s\n", this_test.given);               \
+            printf("   When: %s\n", this_test.when);                \
+            printf("   Then: %s\n", this_test.then);                \
+            printf("Expected: %s\n", expected);                     \
+            printf("Actual  : %s\n ", actual);                      \
+            printf("\n");                                           \
+            return;                                                 \
+        }                                                           \
+    } while (0)
+
+#define REQUIRE_EQUAL_MEMORY(expected_ptr, actual_ptr, size)    \
+do {                                                            \
+    if (memcmp(expected_ptr, actual_ptr, size) != 0) {          \
+        test_count_failed++;                                    \
+        printf("FAIL: %s:%d \n",                                \
+            __FILE__, __LINE__);                                \
+        printf("  Given: %s\n", this_test.given);               \
+        printf("   When: %s\n", this_test.when);                \
+        printf("   Then: %s\n", this_test.then);                \
+        printf("\n");                                           \
+        return;                                                 \
+    }                                                           \
+} while (0)
 /*
     State maintined by clarify during the execution of tests.
 */
@@ -87,7 +130,9 @@ typedef struct {
 #define UNIQUE_TEST_FUNCTION_NAME TOKENPASTE2(test_, __LINE__)
 
 #define PRINT_HEADER() \
-    printf("%s: Running Tests...\n", __FILE__);
+    printf("---------------------------------------------------\n"); \
+    printf("%s: Running Tests...\n", __FILE__); \
+    printf("---------------------------------------------------\n"); \
 
 #define PRINT_RESULTS() \
     printf("\n"); \

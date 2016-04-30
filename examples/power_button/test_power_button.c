@@ -48,7 +48,7 @@ RUN_TESTS() {
             int a = 1;
             int b = 2;
             THEN("I get a failure") {
-                REQUIRE_EQUAL(a, b, %d);
+                REQUIRE_EQUAL_INT(a, b);
             }
         }
     }
