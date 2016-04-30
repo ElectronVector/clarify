@@ -42,14 +42,4 @@ RUN_TESTS() {
             }
         }
     }
-
-    GIVEN("I want to create a failing test"){
-        WHEN("I compare two invalid values"){
-            int a = 1;
-            int b = 2;
-            THEN("I get a failure") {
-                REQUIRE_EQUAL_INT(a, b);
-            }
-        }
-    }
 }

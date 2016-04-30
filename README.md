@@ -72,17 +72,29 @@ For each WHEN or THEN clause, the parent GIVEN and/or WHEN clauses are re-run, s
 When a test fails, you get a message telling you exactly where the problem is:
 
 ```
-test_power_button.c: Running Tests...
----------------------------------------------------
-Test at test_power_button.c:6 FAILED
----------------------------------------------------
-  Given: the power is off
-   When: the power button is momentarily pressed
-   Then: the power turns on
----------------------------------------------------
-FAILED at test_power_button.c:20:
-  REQUIRE( power_button_getPowerState() == POWER_OFF )
+FAIL: test_power_button.c:41
+  Given: the power is on
+   When: the power button is held down
+   Then: the power turns off
+REQUIRE( power_button_getPowerState() == POWER_ON )
 ```
+
+## Other REQUIRE tests
+
+The plain-old REQUIRE test doesn't print the expected or actual values if there is an error. If you'd like to print these values, you can use one of these type specific tests:
+`REQUIRE_EQUAL_INT(expected, actual)`
+`REQUIRE_EQUAL_UINT(expected, actual)`
+`REQUIRE_EQUAL_BYTE(expected, actual)`
+
+If you'd like something more specific, you can use the raw format function:
+`REQUIRE_EQUAL_FORMAT(expected, actual, format)`
+The `format` is a printf-style format, e.g. to compare characters, you would use `%c`.
+
+There's also test for strings:
+`REQUIRE_EQUAL_STRING(expected, actual)`
+
+And one for memory:
+`REQUIRE_EQUAL_MEMORY(expected, actual, size)`
 
 ## Example
 
