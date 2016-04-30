@@ -82,19 +82,24 @@ REQUIRE( power_button_getPowerState() == POWER_ON )
 ## Other REQUIRE tests
 
 The plain-old REQUIRE test doesn't print the expected or actual values if there is an error. If you'd like to print these values, you can use one of these type specific tests:
-`REQUIRE_EQUAL_INT(expected, actual)`
-`REQUIRE_EQUAL_UINT(expected, actual)`
-`REQUIRE_EQUAL_BYTE(expected, actual)`
+
+- `REQUIRE_EQUAL_INT(expected, actual)`
+- `REQUIRE_EQUAL_UINT(expected, actual)`
+- `REQUIRE_EQUAL_BYTE(expected, actual)`
 
 If you'd like something more specific, you can use the raw format function:
-`REQUIRE_EQUAL_FORMAT(expected, actual, format)`
+
+- `REQUIRE_EQUAL_FORMAT(expected, actual, format)`
+
 The `format` is a printf-style format, e.g. to compare characters, you would use `%c`.
 
 There's also test for strings:
-`REQUIRE_EQUAL_STRING(expected, actual)`
+
+- `REQUIRE_EQUAL_STRING(expected, actual)`
 
 And one for memory:
-`REQUIRE_EQUAL_MEMORY(expected, actual, size)`
+
+- `REQUIRE_EQUAL_MEMORY(expected, actual, size)`
 
 ## Example
 
@@ -134,8 +139,3 @@ RUN_TESTS()
     }
 }
 ```
-
-## To Do
-
-- Add string compare.
-- Add mem compare.
